@@ -18,7 +18,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../../swift-primitives/swift-standard-library-extensions"),
-        .package(path: "../swift-rfc-1951")
+        .package(path: "../../../swift-ietf/swift-rfc-1951")
     ],
     targets: [
         .target(
