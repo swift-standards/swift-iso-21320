@@ -3,16 +3,16 @@ import Testing
 
 @Suite("ISO 21320 Tests")
 struct ISO_21320_Tests {
-    @Test("CRC-32 checksum")
-    func crc32Checksum() {
+    @Test
+    func `CRC-32 checksum`() {
         // Known test vector: "123456789" -> 0xCBF43926
         let data = Array("123456789".utf8)
         let crc = ISO_21320.CRC.`32`.checksum(data)
         #expect(crc == 0xCBF43926)
     }
 
-    @Test("Empty archive")
-    func emptyArchive() {
+    @Test
+    func `Empty archive`() {
         var archive = ISO_21320.Archive()
         let bytes = archive.finalize()
 
@@ -23,8 +23,8 @@ struct ISO_21320_Tests {
         #expect(bytes[1] == 0x4B)
     }
 
-    @Test("Archive with stored file")
-    func archiveWithStoredFile() {
+    @Test
+    func `Archive with stored file`() {
         var archive = ISO_21320.Archive()
         archive.add(path: "test.txt", content: "Hello", compress: false)
         let bytes = archive.finalize()
@@ -38,8 +38,8 @@ struct ISO_21320_Tests {
         #expect(bytes[3] == 0x04)
     }
 
-    @Test("Archive with compressed file")
-    func archiveWithCompressedFile() {
+    @Test
+    func `Archive with compressed file`() {
         var archive = ISO_21320.Archive()
         // Use repetitive data that compresses well
         let content = String(repeating: "Hello World! ", count: 100)
@@ -50,8 +50,8 @@ struct ISO_21320_Tests {
         #expect(bytes.count < content.utf8.count)
     }
 
-    @Test("EPUB mimetype first")
-    func epubMimetypeFirst() {
+    @Test
+    func `EPUB mimetype first`() {
         var archive = ISO_21320.Archive()
         archive.add(path: "mimetype", content: "application/epub+zip", compress: false)
         archive.add(path: "META-INF/container.xml", content: "<xml/>", compress: true)
